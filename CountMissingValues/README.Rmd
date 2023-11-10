@@ -27,7 +27,7 @@ You can install the development version of CountMissingValues like so:
 ``` r
 # library(devtools)
 
-devtools::install_github("stat545ubc-2023/BaseEditor-CountMissingValues")
+devtools::install_github("https://github.com/stat545ubc-2023/BaseEditor-CountMissingValues", subdir = "CountMissingValues")
 ```
 
 ## Example
