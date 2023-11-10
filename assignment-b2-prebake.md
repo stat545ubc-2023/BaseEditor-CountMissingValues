@@ -1,22 +1,38 @@
 ---
 title: "A function to count missing values for all columns by group"
-output: github_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-```{r, message = FALSE}
+
+
+```r
 library(tidyverse)
 library(roxygen2)
+```
+
+```
+## Warning: package 'roxygen2' was built under R version 4.3.2
+```
+
+```r
 library(testthat)
+```
+
+```
+## Warning: package 'testthat' was built under R version 4.3.2
+```
+
+```r
 library(palmerpenguins)
 ```
 
 ## Function and Documentation
 
-```{r} 
+
+```r
 #' Count missing values for all columns by group
 #' 
 #' @description Given a data frame `data` and a 
@@ -69,20 +85,57 @@ count_all_missing_by_group <- function(data, group_col, .groups = "drop") {
 
 This example computes the number of missing values in the `airquality` dataset grouped by the `cyl` column. 
 
-```{r} 
+
+```r
 count_all_missing_by_group(airquality, Month)
+```
+
+```
+## # A tibble: 5 × 6
+##   Month Ozone Solar.R  Wind  Temp   Day
+##   <int> <int>   <int> <int> <int> <int>
+## 1     5     5       4     0     0     0
+## 2     6    21       0     0     0     0
+## 3     7     5       0     0     0     0
+## 4     8     5       3     0     0     0
+## 5     9     1       0     0     0     0
 ```
 
 This example has the same output as the last example, but shows off an alternative way of invoking the `count_all_missing_by_group()`: piping the dataset into the function. 
 
-```{r} 
+
+```r
 airquality |> count_all_missing_by_group(Month) 
+```
+
+```
+## # A tibble: 5 × 6
+##   Month Ozone Solar.R  Wind  Temp   Day
+##   <int> <int>   <int> <int> <int> <int>
+## 1     5     5       4     0     0     0
+## 2     6    21       0     0     0     0
+## 3     7     5       0     0     0     0
+## 4     8     5       3     0     0     0
+## 5     9     1       0     0     0     0
 ```
 
 The optional `.groups` argument allows us to keep the output grouped by the grouping column. See example below; notice how the output is a grouped tibble, rather than the ungrouped tibble output of the earlier examples. 
 
-```{r} 
+
+```r
 count_all_missing_by_group(airquality, Month, .groups = "keep")
+```
+
+```
+## # A tibble: 5 × 6
+## # Groups:   Month [5]
+##   Month Ozone Solar.R  Wind  Temp   Day
+##   <int> <int>   <int> <int> <int> <int>
+## 1     5     5       4     0     0     0
+## 2     6    21       0     0     0     0
+## 3     7     5       0     0     0     0
+## 4     8     5       3     0     0     0
+## 5     9     1       0     0     0     0
 ```
 
 
@@ -92,8 +145,8 @@ The first test checks whether the function gives the same result as directly cal
 
 The second test checks the error handling for malformed `.groups` input arguments. We check that the valid input `NULL` doesn't throw an error because `NULL` can play havoc on badly written input checks. 
 
-```{r} 
 
+```r
 test_that("Output matches direct call to dplyr", { 
   small_tbl <- tribble(~group, ~var1, ~var2, 
                      "A", 1, NA, 
@@ -113,7 +166,13 @@ test_that("Output matches direct call to dplyr", {
                 count_all_missing_by_group(small_tbl, group, NULL)
               )
 })
+```
 
+```
+## Test passed 🌈
+```
+
+```r
 test_that("Checking error handling for .groups input", { 
       expect_error(
         count_all_missing_by_group(airquality, Month, "kep")
@@ -122,4 +181,8 @@ test_that("Checking error handling for .groups input", {
         count_all_missing_by_group(airquality, Month, NULL)
       )
   })
+```
+
+```
+## Test passed 🎉
 ```
