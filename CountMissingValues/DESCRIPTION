@@ -1,0 +1,17 @@
+Package: CountMissingValues
+Title: Count Missing Values For All Columns by Group
+Version: 0.1.0
+Authors@R: 
+    person("Liam", "O'Keeffe", , "liamok@student.ubc.ca", role = c("aut", "cre"))
+Description: Given a data frame and column group, count_all_missing_by_group
+    will return a table containing the levels of group in the first column, 
+    and number of missing values for each given column in subsequent columns.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    dplyr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
